@@ -14,13 +14,17 @@ LOCAL_SRC_FILES:=                                      \
                   PppController.cpp                    \
                   ResolverController.cpp               \
                   SecondaryTableController.cpp         \
-                  SoftapController.cpp                 \
                   TetherController.cpp                 \
                   ThrottleController.cpp               \
                   oem_iptables_hook.cpp                \
                   logwrapper.c                         \
                   main.cpp                             \
 
+ifeq ($(BOARD_WIFI_VENDOR), realtek)
+LOCAL_SRC_FILES += ../../hardware/realtek/wlan/netd/SoftapController_realtek.cpp
+else
+LOCAL_SRC_FILES += SoftapController.cpp
+endif
 
 LOCAL_MODULE:= netd
 
