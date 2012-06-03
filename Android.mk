@@ -20,12 +20,6 @@ LOCAL_SRC_FILES:=                                      \
                   logwrapper.c                         \
                   main.cpp                             \
 
-ifeq ($(BOARD_WIFI_VENDOR), realtek)
-LOCAL_SRC_FILES += ../../hardware/realtek/wlan/netd/SoftapController_realtek.cpp
-else
-LOCAL_SRC_FILES += SoftapController.cpp
-endif
-
 LOCAL_MODULE:= netd
 
 LOCAL_C_INCLUDES := $(KERNEL_HEADERS) \
@@ -45,6 +39,8 @@ ifdef BOARD_SOFTAP_DEVICE_TI
     LOCAL_SRC_FILES += SoftapControllerTI.cpp
     LOCAL_C_INCLUDES += external/libnl-headers
     LOCAL_STATIC_LIBRARIES += libnl_2
+else ifeq ($(BOARD_WIFI_VENDOR), realtek)
+    LOCAL_SRC_FILES += ../../hardware/realtek/wlan/netd/SoftapController_realtek.cpp
 else
     LOCAL_SRC_FILES += SoftapController.cpp
 endif
